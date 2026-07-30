@@ -1,0 +1,23 @@
+# Cấu hình Môi trường Local (Sử dụng Ollama chạy dưới máy local)
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration
+  ai:
+    # Kích hoạt Ollama và vô hiệu hóa OpenAI khi chạy Profile Local
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        enabled: true
+        options:
+          model: qwen2.5:1.5b
+          temperature: 0.3
+      embedding:
+        enabled: true
+        options:
+          model: nomic-embed-text
+    vectorstore:
+      pgvector:
+        dimensions: 768
+
+

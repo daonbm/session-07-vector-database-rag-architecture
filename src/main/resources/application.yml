@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: session-07-vector-database-rag
+  profiles:
+    active: local # Chọn profile mặc định: local (Ollama) hoặc cloud (OpenAI / OpenRouter)
+
+  # Cấu hình DataSource kết nối Supabase PostgreSQL / PGVector
+  datasource:
+    url: jdbc:postgresql://db.xdxemvsufzojbtmqelys.supabase.co:5432/postgres
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:VectorDBAndRAG2026}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+
+  # Cấu hình PGVector VectorStore trong Spring AI
+  ai:
+    vectorstore:
+      pgvector:
+        initialize-schema: true # Tự động tạo bảng vector_store và cài đặt extension vector nếu chưa có
+        distance-type: COSINE_DISTANCE
+        index-type: HNSW
+
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+logging:
+  level:
+    root: INFO
+    com.example.rag: DEBUG
+    org.springframework.ai: INFO

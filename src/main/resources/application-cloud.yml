@@ -1,0 +1,23 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.autoconfigure.ollama.OllamaAutoConfiguration
+  ai:
+    openai:
+      # OpenRouter API Gateway hỗ trợ Function Calling
+      base-url: https://openrouter.ai/api
+      api-key: ${AI_API_KEY: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}
+      chat:
+        enabled: true
+        options:
+          model: ${AI_MODEL:inclusionai/ling-3.0-flash:free}
+          temperature: 0.3
+      embedding:
+        enabled: true
+        options:
+          model: ${AI_EMBEDDING_MODEL:openai/text-embedding-3-small}
+
+    vectorstore:
+      pgvector:
+        dimensions: 1536
+
